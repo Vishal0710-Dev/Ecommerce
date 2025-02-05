@@ -9,14 +9,34 @@ export const registerController = async (req, res) => {
     }
 };
 
+// export const loginController = async (req, res) => {
+//     try {
+//         const { email, password} = req.body
+//         console.log("line 15")
+//         const { user } = await loginUser(email, password)
+//         console.log("line 17")
+//         const token = generateToken(user._id);
+//         res.status(200).json({ success: true, message: "Login successful"
+//             });
+//     } catch (error) {
+//         res.status(500).json({ message: "Error in login API" });
+//     }
+// };
+
+
 export const loginController = async (req, res) => {
     try {
-        const { user} = await loginUser(req.body);
-        const token = generateToken(user._id);
-        res.status(200).json({ success: true, message: "Login successful", token
-            });
+        const { email, password } = req.body;
+
+        const { user, token } = await loginUser(email, password);
+        if (!user) {
+            throw new Error("User not found");
+        }
+        // const token = generateToken(user._id);
+        
+        res.status(200).json({ message: "Login successful", token, user});
     } catch (error) {
-        res.status(500).json({ message: "Error in login API" });
+        res.status(500).json({ message: error.message });
     }
 };
 

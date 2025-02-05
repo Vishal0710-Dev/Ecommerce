@@ -29,10 +29,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true, 'phone no is required']
     },
-    role:{
-        type:String,
+    role: {
+        type: String,
         enum:['user', 'admin'],
-        default: 'user'
+        default:'user'
     }
 },{timestamps:true});
   export const userModel = mongoose.model("Users", userSchema);

@@ -1,20 +1,26 @@
 import orderModel from '../models/orderModels.js';
-
 export const createOrder = async (orderData, userId) => {
-    const { shippingInfo, orderItems, orderStatus } = orderData;
+  const { shippingInfo, orderItems,
+   //totalAmount, paymentMethod
+    } = orderData;
 
-    if (!shippingInfo || !orderItems || !orderStatus) {
-        throw new Error("Please provide all fields");
-    }
+  if (!shippingInfo || !orderItems
+  // || !totalAmount || !paymentMethod
+  ) {
+      throw new Error("All fields are required");
+  }
 
-    return await orderModel.create({
-        user: userId,
-        shippingInfo,
-        orderItems,
-        orderStatus
-    });
-} 
+  const newOrder = new orderModel({
+      user: userId,
+      shippingInfo,
+      orderItems,
+      
+   // totalAmount,
+   // paymentMethod,
+  });
 
+  return await newOrder.save();
+};
 export const getMyOrder = async (userId) => {
   try {
     const orders = await orderModel.find({ user: userId });

@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import connectDB from "./config/db.js";
+//import logger from "./middlewares/logger.js";
 //dot env config
 dotenv.config();
 
@@ -28,6 +29,13 @@ app.get("/", (req, res) => {
     return res.status(200).send("<h1>welcome to node server </h1>");
 
 });
+// // Middleware for HTTP request logging using morgan
+// app.use(morgan("combined", {
+//     stream: {
+//         write: (message) => logger.info(message.trim()) // Log morgan messages using winston
+//     }
+// }));
+
 
 //port 
 const PORT = process.env.PORT || 8080;

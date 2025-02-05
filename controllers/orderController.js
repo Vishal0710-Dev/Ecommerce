@@ -1,13 +1,23 @@
 import { changeOrderStatus, createOrder, getAllOrders, getMyOrder } from '../services/orderService.js';
 
 export const createOrderController = async (req, res) => {
-    try {
-        const order = await createOrder(req.body, req.user._id);
-        res.status(201).json({ message: "Order created successfully"});
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
- };
+  try {
+      const { shippingInfo, orderItems,
+       //totalAmount, paymentMethod
+        } = req.body;
+      
+      if (!shippingInfo || !orderItems
+       // !totalAmount || !paymentMethod
+        ) {
+          return res.status(400).json({ message: "All fields are required" });
+      }
+
+      const order = await createOrder(req.body, req.user._id);
+      res.status(201).json({ message: "Order created successfully", order });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
 
  export const getMyOrdersController = async (req, res) => {
    try {
