@@ -1,26 +1,41 @@
 import orderModel from '../models/orderModels.js';
-export const createOrder = async (orderData, userId) => {
-  const { shippingInfo, orderItems,
-   //totalAmount, paymentMethod
-    } = orderData;
+import productModel from '../models/productModels.js';
+import mongoose from 'mongoose';
 
-  if (!shippingInfo || !orderItems
-  // || !totalAmount || !paymentMethod
-  ) {
-      throw new Error("All fields are required");
+export const createOrder = async (orderData, userId) => {
+  const { shippingInfo, orderItems } = orderData;
+
+  if (!shippingInfo || !orderItems) {
+    throw new Error("Shipping info and order items are required");
   }
 
-  const newOrder = new orderModel({
-      user: userId,
-      shippingInfo,
-      orderItems,
-      
-   // totalAmount,
-   // paymentMethod,
-  });
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  return await newOrder.save();
+  try {
+    for (let item of orderItems) {
+      const product = await productModel.findById(item.product).session(session);
+      if (!product || product.stock < item.quantity) {
+        throw new Error(`Insufficient stock for product: ${item.product}`);
+      }
+      product.stock -= item.quantity;
+      await product.save({ session });
+    }
+
+    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems });
+    const savedOrder = await newOrder.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return savedOrder;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw new Error(error.message);
+  }
 };
+
 export const getMyOrder = async (userId) => {
   try {
     const orders = await orderModel.find({ user: userId });
