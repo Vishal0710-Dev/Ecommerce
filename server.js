@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
+import cartRoutes from "./routes/cartRoutes.js"
 import connectDB from "./config/db.js";
 import logger from "./middlewares/logger.js";
 import errorhandler from "./middlewares/errorhandler.js";
@@ -26,6 +27,7 @@ app.use(cors());
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/order", orderRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 app.get("/", (req, res) => {
     return res.status(200).send("<h1>welcome to node server </h1>");

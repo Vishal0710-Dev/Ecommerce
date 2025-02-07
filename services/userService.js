@@ -8,7 +8,7 @@ export const registerUser = async (userData) => {
     if (!emailRegex.test(email)) {
         throw new Error("Invalid email format");
     }
-    const passwordRegex =/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex =/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if(!passwordRegex.test(password)) {
         throw new Error("Invalid password format")
     }
@@ -93,6 +93,7 @@ export const updateUserProfile = async (userId, updateData) => {
     return user;
 };
 
+//export const logoutUser = async w
 export const getAllProfiles = async () => {
     try {
         const users = await userModel.find({});

@@ -1,0 +1,16 @@
+2025-02-07T04:53:50.683Z [ERROR]: Unexpected token '}', ..."t": 
+    }
+  ]
+}"... is not valid JSON - POST /api/v1/order/create
+2025-02-07T09:05:08.706Z [ERROR]: Expected ',' or '}' after property value in JSON at position 111 (line 4 column 21) - POST /api/v1/cart/add-to-cart
+2025-02-07T09:05:16.224Z [INFO]: ::1 - - [07/Feb/2025:09:05:16 +0000] "POST /api/v1/cart/add-to-cart HTTP/1.1" 404 163 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:05:17.971Z [INFO]: ::1 - - [07/Feb/2025:09:05:17 +0000] "POST /api/v1/cart/add-to-cart HTTP/1.1" 404 163 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:05:57.997Z [INFO]: ::1 - - [07/Feb/2025:09:05:57 +0000] "POST /api/v1/cart/add-to-cart HTTP/1.1" 404 163 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:06:16.642Z [INFO]: ::1 - - [07/Feb/2025:09:06:16 +0000] "POST /api/v1/cart/add-to-cart HTTP/1.1" 404 163 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:06:59.920Z [INFO]: ::1 - - [07/Feb/2025:09:06:59 +0000] "POST /api/v1/cart/addtocart HTTP/1.1" 404 161 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:07:22.967Z [INFO]: ::1 - - [07/Feb/2025:09:07:22 +0000] "POST /api/v1/cart/addtocart HTTP/1.1" 404 161 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:07:52.696Z [INFO]: ::1 - - [07/Feb/2025:09:07:52 +0000] "POST /api/v1/cart/addtocart HTTP/1.1" 404 161 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:11:39.967Z [INFO]: ::1 - - [07/Feb/2025:09:11:39 +0000] "POST /api/v1/cart/add-to-cart HTTP/1.1" 404 163 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:12:32.524Z [INFO]: ::1 - - [07/Feb/2025:09:12:32 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:12:33.796Z [INFO]: ::1 - - [07/Feb/2025:09:12:33 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
+2025-02-07T09:12:40.662Z [INFO]: ::1 - - [07/Feb/2025:09:12:40 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
