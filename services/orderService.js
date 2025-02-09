@@ -2,7 +2,7 @@ import orderModel from '../models/orderModels.js';
 import productModel from '../models/productModels.js';
 import mongoose from 'mongoose';
 
-export const createOrder = async (orderData, userId) => {
+export const createOrder = async (orderData, userId, imageUrls) => {
   const { shippingInfo, orderItems } = orderData;
 
   if (!shippingInfo || !orderItems) {
@@ -12,7 +12,7 @@ export const createOrder = async (orderData, userId) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
-  try {
+
     for (let item of orderItems) {
       const product = await productModel.findById(item.product).session(session);
       if (!product || product.stock < item.quantity) {
@@ -22,39 +22,30 @@ export const createOrder = async (orderData, userId) => {
       await product.save({ session });
     }
 
-    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems });
+    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems, images:imageUrls 
+      });
     const savedOrder = await newOrder.save({ session });
 
     await session.commitTransaction();
     session.endSession();
 
     return savedOrder;
-  } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    throw new Error(error.message);
-  }
+ 
 };
 
 export const getMyOrder = async (userId) => {
-  try {
     const orders = await orderModel.find({ user: userId });
     if (!orders || orders.length === 0) {
       throw new Error('No orders found');
     }
     return orders;
-  } catch (error) {
-    throw error;
-  }
+  
 };
 //admin
 export const getAllOrders = async () => {
-    try {
         const orders = await orderModel.find({});
         return orders;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    
 };
 export const changeOrderStatus = async (orderId) => {
   const order = await orderModel.findById(orderId);

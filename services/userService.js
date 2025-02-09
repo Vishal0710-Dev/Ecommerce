@@ -95,24 +95,19 @@ export const updateUserProfile = async (userId, updateData) => {
 
 //export const logoutUser = async w
 export const getAllProfiles = async () => {
-    try {
         const users = await userModel.find({});
         return users;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    
 };
 
 export const deleteProfile = async (userId) => {
-    try {
+    
         const deletedUser = await userModel.findByIdAndDelete(userId);
         if (!deletedUser) {
             throw new Error("User not found");
         }
         return deletedUser;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    
 };
 
                                                                                                                                                                                                                                                 
