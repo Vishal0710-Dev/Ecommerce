@@ -10,9 +10,10 @@ export const createOrderController = async (req, res) => {
         ) {
           return res.status(400).json({ message: "All fields are required" });
       }
-      //const imageUrls = req.files.map(file => `/uploads/orders/${file.filename}`);
+      // const imageUrls = req.files.map(file => `/uploads/orders/${file.filename}`);
 
-      const order = await createOrder(req.body, req.user._id, imageUrls);
+      const order = await createOrder(req.body, req.user._id, //imageUrls
+      );
       res.status(201).json({ message: "Order created successfully", order });
   } catch (error) {
       res.status(500).json({ message: error.message });

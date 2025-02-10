@@ -14,3 +14,4 @@
 2025-02-07T09:12:32.524Z [INFO]: ::1 - - [07/Feb/2025:09:12:32 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
 2025-02-07T09:12:33.796Z [INFO]: ::1 - - [07/Feb/2025:09:12:33 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
 2025-02-07T09:12:40.662Z [INFO]: ::1 - - [07/Feb/2025:09:12:40 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
+2025-02-10T05:44:22.817Z [ERROR]: Expected ',' or ']' after array element in JSON at position 267 (line 17 column 1) - POST /api/v1/order/create

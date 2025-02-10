@@ -5,7 +5,8 @@ import { changeOrderStatusController, createOrderController, getAllOrdersControl
 const router = express.Router();
 
 //User Routes
-router.post("/create", isAuth, //upload.array("images", 5), 
+router.post("/create", isAuth, 
+    // upload.array("images", 5), 
 createOrderController);
 router.get("/get-myorder", isAuth , getMyOrdersController);
 

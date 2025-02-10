@@ -2,7 +2,8 @@ import orderModel from '../models/orderModels.js';
 import productModel from '../models/productModels.js';
 import mongoose from 'mongoose';
 
-export const createOrder = async (orderData, userId, imageUrls) => {
+export const createOrder = async (orderData, userId//, imageUrls
+) => {
   const { shippingInfo, orderItems } = orderData;
 
   if (!shippingInfo || !orderItems) {

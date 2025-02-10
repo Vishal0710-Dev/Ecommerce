@@ -3,3 +3,4 @@
   ]
 }"... is not valid JSON - POST /api/v1/order/create
 2025-02-07T09:05:08.706Z [ERROR]: Expected ',' or '}' after property value in JSON at position 111 (line 4 column 21) - POST /api/v1/cart/add-to-cart
+2025-02-10T05:44:22.817Z [ERROR]: Expected ',' or ']' after array element in JSON at position 267 (line 17 column 1) - POST /api/v1/order/create
