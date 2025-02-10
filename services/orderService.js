@@ -22,7 +22,8 @@ export const createOrder = async (orderData, userId, imageUrls) => {
       await product.save({ session });
     }
 
-    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems, images:imageUrls 
+    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems,
+      // images
       });
     const savedOrder = await newOrder.save({ session });
 

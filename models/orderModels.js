@@ -37,6 +37,7 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
+    // images: [{ type: String }],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',
