@@ -2,9 +2,9 @@ import orderModel from '../models/orderModels.js';
 import productModel from '../models/productModels.js';
 import mongoose from 'mongoose';
 
-export const createOrder = async (orderData, userId//, imageUrls
-) => {
-  const { shippingInfo, orderItems } = orderData;
+
+export const createOrder = async (orderData, userId) => {
+  const { shippingInfo, orderItems, images } = orderData;
 
   if (!shippingInfo || !orderItems) {
     throw new Error("Shipping info and order items are required");
@@ -13,7 +13,7 @@ export const createOrder = async (orderData, userId//, imageUrls
   const session = await mongoose.startSession();
   session.startTransaction();
 
-
+  try {
     for (let item of orderItems) {
       const product = await productModel.findById(item.product).session(session);
       if (!product || product.stock < item.quantity) {
@@ -23,32 +23,47 @@ export const createOrder = async (orderData, userId//, imageUrls
       await product.save({ session });
     }
 
-    const newOrder = new orderModel({ user: userId, shippingInfo, orderItems,
-      // images
-      });
+    const newOrder = new orderModel({
+      user: userId,
+      shippingInfo,
+      orderItems,
+      images,
+    });
+
     const savedOrder = await newOrder.save({ session });
 
     await session.commitTransaction();
     session.endSession();
 
     return savedOrder;
- 
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
 };
+
 
 export const getMyOrder = async (userId) => {
     const orders = await orderModel.find({ user: userId });
     if (!orders || orders.length === 0) {
       throw new Error('No orders found');
     }
-    return orders;
+    return await Order.find().populate("orderItems.product", "name price image");
+    //return orders;
   
 };
 //admin
 export const getAllOrders = async () => {
-        const orders = await orderModel.find({});
-        return orders;
-    
+  const orders = await orderModel.find({});
+
+  return orders.map(order => ({
+    ...order._doc,
+    images: order.images.map(img => `${process.env.BASE_URL}${img}`),
+  }));
+  //return await Order.find().populate("orderItems.product", "name price image");
 };
+
 export const changeOrderStatus = async (orderId) => {
   const order = await orderModel.findById(orderId);
   

@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from 'dotenv';
 // import path from "path";
 // import { fileURLToPath } from "url"; 
+//import session from "express-session";
 import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
@@ -21,12 +22,20 @@ connectDB();
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors());
+app.use(cors()); 
+
+
+// app.use(session({
+//     secret: process.env.SESSION_SECRET || 'your-secret-key',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false, httpOnly: true }
+// }));
 // routes imports
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
-
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/uploads', express.static('uploads')); 
+// app.use("/api/v1/order/uploads", express.static(path.join(__dirname, "uploads")), orderRoutes);
 app.use("/api/v1/order", orderRoutes);
 app.use("/api/v1/cart", cartRoutes);
 

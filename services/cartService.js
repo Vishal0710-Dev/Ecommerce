@@ -3,13 +3,9 @@ import Cart from "../models/cartModels.js";
 import productModel from "../models/productModels.js";
 
 const addToCart = async (userId, productId, quantity) => {
-    // Validate productId format
-    // if (typeof productId !== "string") {
-    //     throw new Error(`Invalid product ID format. Expected a string, got ${typeof productId}`);
-    // }
-    // if (!mongoose.isValidObjectId(productId)) {
-    //     throw new Error(`Invalid ObjectId: ${productId}`);
-    // }
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+        throw new Error("Invalid product ID");
+    }
 
     const product = await productModel.findById(productId);
     if (!product) throw new Error("Product not found");
@@ -19,19 +15,28 @@ const addToCart = async (userId, productId, quantity) => {
     let cart = await Cart.findOne({ userId });
 
     if (!cart) {
-        cart = new Cart({ userId });
+        cart = new Cart({ userId, items: [] });
     }
 
-    // const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+    let updatedItem = null;
 
-    // if (itemIndex > -1) {
-    //     cart.items[itemIndex].quantity += quantity;
-    // } else {
-    //     cart.items.push({ productId, quantity });
-    // }
+    const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+
+    if (itemIndex > -1) {
+        cart.items[itemIndex].quantity = quantity;
+        updatedItem = cart.items[itemIndex];
+    } else {
+        updatedItem = { productId, quantity };
+        cart.items.push(updatedItem);
+    }
 
     await cart.save();
-    return cart;
+
+    return {
+        userId, 
+        productId: updatedItem.productId,
+        quantity: updatedItem.quantity
+    };
 };
 
 export default { addToCart };

@@ -1,30 +1,53 @@
-import cartService from '../services/cartService.js'
+import cartService from "../services/cartService.js";
+import JWT from "jsonwebtoken";
+import userModel from "../models/userModels.js";
+
 export const addToCartController = async (req, res) => {
     try {
-        const userId = req.user.id;
         const { productId, quantity } = req.body;
+        let user = null;
 
-        if (!productId || !quantity) {
-            return res.status(400).json({ message: "Product ID and quantity are required" });
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith("Bearer ")) {
+            try {
+                const token = authHeader.split(" ")[1];
+                const decodedData = JWT.verify(token, process.env.JWT_SECRET);
+                user = await userModel.findById(decodedData._id).select("-password");
+            } catch (error) {
+                console.log("Invalid token:", error.message);
+            }
         }
 
-        const cart = await cartService.addToCart(userId, productId, quantity);
+        if (user) {
+            const cartItem = await cartService.addToCart(user._id, productId, quantity);
+            return res.status(200).json({ 
+                message: "Item added to cart", 
+                //userId: cartItem.userId, 
+                cartItem 
+            });
+        }
 
-       //const lastAddedItem = cart.items[cart.items.length - 1];
+        if (!req.session) {
+            req.session = {};
+        }
+        if (!req.session.cartItems) {
+            req.session.cartItems = [];
+        }
 
-        return res.status(200).json({ 
-            message: "Item added to cart", 
-            userId,
-            productId,
-            quantity
-            // productId: lastAddedItem.productId,
-            //  quantity: lastAddedItem.quantity
+        let existingItem = req.session.cartItems.find(item => item.productId === productId);
+
+        if (existingItem) {
+            existingItem.quantity = quantity;
+        } else {
+            req.session.cartItems.push({ productId, quantity });
+        }
+
+        return res.status(200).json({
+            message: "Item added to guest cart",
+            cartItem: { productId, quantity }
         });
 
     } catch (error) {
-        console.error("Error in addToCartController:", error.message);
         return res.status(500).json({ message: error.message });
     }
 };
-
-

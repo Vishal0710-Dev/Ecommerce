@@ -15,3 +15,12 @@
 2025-02-07T09:12:33.796Z [INFO]: ::1 - - [07/Feb/2025:09:12:33 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
 2025-02-07T09:12:40.662Z [INFO]: ::1 - - [07/Feb/2025:09:12:40 +0000] "POST /api/v1/add-to-cart HTTP/1.1" 404 158 "-" "PostmanRuntime/7.43.0"
 2025-02-10T05:44:22.817Z [ERROR]: Expected ',' or ']' after array element in JSON at position 267 (line 17 column 1) - POST /api/v1/order/create
+2025-02-10T07:01:13.077Z [INFO]: ::1 - - [10/Feb/2025:07:01:13 +0000] "POST /api/v1/order/create HTTP/1.1" 404 159 "-" "PostmanRuntime/7.43.0"
+2025-02-10T07:01:15.018Z [INFO]: ::1 - - [10/Feb/2025:07:01:15 +0000] "POST /api/v1/order/create HTTP/1.1" 404 159 "-" "PostmanRuntime/7.43.0"
+2025-02-10T07:01:21.288Z [INFO]: ::1 - - [10/Feb/2025:07:01:21 +0000] "POST /api/v1/order/create/uploads HTTP/1.1" 404 167 "-" "PostmanRuntime/7.43.0"
+2025-02-10T07:01:58.330Z [INFO]: ::1 - - [10/Feb/2025:07:01:58 +0000] "POST /api/v1/order/create/uploads HTTP/1.1" 404 167 "-" "PostmanRuntime/7.43.0"
+2025-02-10T07:04:00.380Z [INFO]: ::1 - - [10/Feb/2025:07:04:00 +0000] "POST /api/v1/order/create/uploads HTTP/1.1" 404 167 "-" "PostmanRuntime/7.43.0"
+2025-02-10T07:04:01.545Z [INFO]: ::1 - - [10/Feb/2025:07:04:01 +0000] "POST /api/v1/order/create/uploads HTTP/1.1" 404 167 "-" "PostmanRuntime/7.43.0"
+2025-02-10T11:24:17.797Z [ERROR]: Unexpected field - POST /api/v1/order/create
+2025-02-10T11:29:27.217Z [ERROR]: Expected double-quoted property name in JSON at position 269 (line 15 column 1) - POST /api/v1/order/create
+2025-02-11T05:16:29.500Z [INFO]: ::1 - - [11/Feb/2025:05:16:29 +0000] "POST /api/v1/product/create HTTP/1.1" 404 161 "-" "PostmanRuntime/7.43.0"

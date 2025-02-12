@@ -1,22 +1,20 @@
 import { changeOrderStatus, createOrder, getAllOrders, getMyOrder } from '../services/orderService.js';
+
 export const createOrderController = async (req, res) => {
   try {
-      const { shippingInfo, orderItems,
-       //totalAmount, paymentMethod
-        } = req.body;
-      
-      if (!shippingInfo || !orderItems
-       // !totalAmount || !paymentMethod
-        ) {
-          return res.status(400).json({ message: "All fields are required" });
-      }
-      // const imageUrls = req.files.map(file => `/uploads/orders/${file.filename}`);
+    const { shippingInfo, orderItems } = req.body;
 
-      const order = await createOrder(req.body, req.user._id, //imageUrls
-      );
-      res.status(201).json({ message: "Order created successfully", order });
+    if (!shippingInfo || !orderItems) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+
+    const order = await createOrder({ ...req.body, images }, req.user._id);
+
+    res.status(201).json({ message: 'Order created successfully', order });
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -42,6 +40,25 @@ export const getAllOrdersController = async (req, res) => {
       res.status(500).json({ message: error.message });
   }
 };
+
+// export const getAllOrdersController = async (req, res) => {
+//   try {
+//       const orders = await getAllOrders();
+
+//       const ordersWithImages = orders.map(order => ({
+//           ...order._doc,
+//           orderItems: order.orderItems.map(item => ({
+//               ...item._doc,
+//               image: item.product?.image || null,
+//           })),
+//       }));
+
+//       res.status(200).json({ message: 'Get all order data', orders: ordersWithImages });
+//   } catch (error) {
+//       res.status(500).json({ message: error.message });
+//   }
+// };
+
 
 export const changeOrderStatusController = async (req, res) => {
   try {

@@ -2,6 +2,7 @@ import { addProduct, getAllProducts, updateProduct, deleteProduct } from "../ser
 
 export const AddProductController = async (req, res) => {
     try {
+        //const { productId, name, description, price, stock, image } = req.body;
         const product = await addProduct(req.body);
         res.status(201).json({ success: true, message: "Product added successfully", product });
     } catch (error) {
