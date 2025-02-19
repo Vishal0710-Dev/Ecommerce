@@ -1,7 +1,6 @@
 import productModel from "../models/productModels.js";
 
 export const addProduct = async (productData) => {
- // if (!productId || !name || !description || !price  || !stock  ) {  // throw new Error("All fields are required") 
     return await productModel.create(productData);
 };
 

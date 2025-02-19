@@ -50,10 +50,8 @@ export const getMyOrder = async (userId) => {
       throw new Error('No orders found');
     }
     return await Order.find().populate("orderItems.product", "name price image");
-    //return orders;
   
 };
-//admin
 export const getAllOrders = async () => {
   const orders = await orderModel.find({});
 
@@ -61,7 +59,6 @@ export const getAllOrders = async () => {
     ...order._doc,
     images: order.images.map(img => `${process.env.BASE_URL}${img}`),
   }));
-  //return await Order.find().populate("orderItems.product", "name price image");
 };
 
 export const changeOrderStatus = async (orderId) => {

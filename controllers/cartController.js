@@ -22,7 +22,6 @@ export const addToCartController = async (req, res) => {
             const cartItem = await cartService.addToCart(user._id, productId, quantity);
             return res.status(200).json({ 
                 message: "Item added to cart", 
-                //userId: cartItem.userId, 
                 cartItem 
             });
         }

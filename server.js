@@ -2,9 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from 'dotenv';
-// import path from "path";
-// import { fileURLToPath } from "url"; 
-//import session from "express-session";
 import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
@@ -15,9 +12,7 @@ import errorhandler from "./middlewares/errorhandler.js";
 
 
 dotenv.config();
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-//database connection
+
 connectDB();
 const app = express();
 app.use(morgan("dev"));
@@ -25,17 +20,8 @@ app.use(express.json());
 app.use(cors()); 
 
 
-// app.use(session({
-//     secret: process.env.SESSION_SECRET || 'your-secret-key',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false, httpOnly: true }
-// }));
-// routes imports
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
-app.use('/uploads', express.static('uploads')); 
-// app.use("/api/v1/order/uploads", express.static(path.join(__dirname, "uploads")), orderRoutes);
 app.use("/api/v1/order", orderRoutes);
 app.use("/api/v1/cart", cartRoutes);
 
@@ -50,10 +36,8 @@ app.use(
   );
 
 
-//port 
 const PORT = process.env.PORT || 8080;
 
-//listen
 app.listen(PORT, () => {
     console.log(`Server Running on port ${process.env.PORT}`);
 });

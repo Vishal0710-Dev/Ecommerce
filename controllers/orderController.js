@@ -29,9 +29,6 @@ export const createOrderController = async (req, res) => {
      res.status(500).json({ message: error.message });
    }
  };
-
- 
-//admin routes
 export const getAllOrdersController = async (req, res) => {
   try {
       const orders = await getAllOrders();
@@ -40,25 +37,6 @@ export const getAllOrdersController = async (req, res) => {
       res.status(500).json({ message: error.message });
   }
 };
-
-// export const getAllOrdersController = async (req, res) => {
-//   try {
-//       const orders = await getAllOrders();
-
-//       const ordersWithImages = orders.map(order => ({
-//           ...order._doc,
-//           orderItems: order.orderItems.map(item => ({
-//               ...item._doc,
-//               image: item.product?.image || null,
-//           })),
-//       }));
-
-//       res.status(200).json({ message: 'Get all order data', orders: ordersWithImages });
-//   } catch (error) {
-//       res.status(500).json({ message: error.message });
-//   }
-// };
-
 
 export const changeOrderStatusController = async (req, res) => {
   try {

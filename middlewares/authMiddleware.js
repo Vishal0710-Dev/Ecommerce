@@ -1,7 +1,6 @@
 import JWT from "jsonwebtoken";
 import userModel from "../models/userModels.js"
 
-//USER Auth
 export const isAuth = async(req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
@@ -21,8 +20,6 @@ export const isAuth = async(req, res, next) => {
 }
                                                                                                                                         
 };
-
-//ADMI Auth
 export const isAdmin = async(req, res, next) =>{
     if(req.user.role !== "admin"){
         return res.status(403).json({
