@@ -18,17 +18,6 @@ const addToCart = async (userId, productId, quantity) => {
         cart = new Cart({ userId, items: [] });
     }
 
-    //let updatedItem = null;
-
-    //const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
-
-    // if (itemIndex > -1) {
-    //     cart.items[itemIndex].quantity = quantity;
-    //     updatedItem = cart.items[itemIndex];
-    // } else {
-    //     updatedItem = { productId, quantity };
-    //     cart.items.push(updatedItem);
-    // }
 
     await cart.save();
 
